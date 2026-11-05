@@ -470,12 +470,15 @@ document.addEventListener("DOMContentLoaded", () => {
     Object.entries(filteredActivities).forEach(([name, details]) => {
       renderActivityCard(name, details);
     });
+    window.activitySharing.focusSharedActivity();
   }
 
   // Function to render a single activity card
   function renderActivityCard(name, details) {
     const activityCard = document.createElement("div");
     activityCard.className = "activity-card";
+    activityCard.id = window.activitySharing.activityId(name);
+    activityCard.tabIndex = -1;
 
     // Calculate spots and capacity
     const totalSpots = details.max_participants;
@@ -587,6 +590,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    activityCard.appendChild(window.activitySharing.createControls(name));
     activitiesList.appendChild(activityCard);
   }
 
